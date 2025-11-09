@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Stayve Portfolio</title>
+
+  <link rel="stylesheet" href="/components/loader.css">
+  <script defer src="/components/loader.js"></script>
+
+  <!-- Page styles -->
+  <link rel="stylesheet" href="/Projects/css/Home.css" />
+
+  <!-- Sidebar component styles -->
+  <link rel="stylesheet" href="/components/sidebar.css" />
+
+  <!-- Icons (Lucide for page + sidebar icons, Font Awesome for Telegram) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    referrerpolicy="no-referrer"
+  />
+
+  <!-- Sidebar component loader -->
+  <script defer src="/components/sidebar.js"></script>
+</head>
+<body>
+
+  <!-- Injected sidebar -->
+  <div id="sidebar-root"></div>
+
+  <!-- HEADER -->
+  <header class="header">
+    <a href="/index.html" class="logo">Stayve Alreach.</a>
+  </header>
+
+  <!-- MAIN CONTENT -->
+  <main id="main">
+
+    <!-- HOME SECTION -->
+    <section class="home">
+      <div class="img">
+        <img src="/images/Me.png" alt="Stayve portrait">
+      </div>
+
+      <div class="home-content">
+        <h1>Hi, I'm Stayve Alreach T. Fedillaga</h1>
+        <h3>Web Developer</h3>
+
+        <p>
+          Im just a type of person who loves to build websites and apps.
+          I explore new tech and improve every single day.
+        </p>
+
+        <div class="btn-box">
+          <a href="/contact.html">Hire Me</a>
+          <a href="/contact.html">Let's Talk</a>
+        </div>
+      </div>
+
+      <div class="home-sci">
+        <a href="https://facebook.com/zephan0318" aria-label="Facebook">
+          <i data-lucide="facebook"></i>
+        </a>
+        <a href="#" aria-label="Instagram">
+          <i data-lucide="instagram"></i>
+        </a>
+        <a href="#" class="tele" aria-label="Telegram">
+          <i class="fa-brands fa-telegram"></i>
+        </a>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS SECTION -->
+    <section class="section">
+      <div class="testimonials">
+        <div class="wrap">
+          <div class="t-header">
+            <h3 class="t-title">
+              <i data-lucide="stars"></i> Client Testimonials
+            </h3>
+            <div class="t-actions">
+              <button
+                class="btn-premium"
+                id="openTestimonial"
+                aria-haspopup="dialog"
+                aria-controls="tModal"
+              >
+                <i data-lucide="pen-line"></i> Leave a Testimonial
+              </button>
+              <span class="t-badge"><i data-lucide="shield-check"></i> Verified</span>
+            </div>
+          </div>
+
+          <div class="t-list">
+            
+          </div>
+        </div>
+      </div>
+    </section>
+    
+    <!--Testimonials view when logged in-->
+    <section class="section" id="my-submissions" hidden>
+  <div class="testimonials">
+    <div class="wrap">
+      <div class="t-header">
+        <h3 class="t-title"><i data-lucide="user"></i> My Submissions</h3>
+        <span class="t-badge"><i data-lucide="info"></i> Only you can see this</span>
+      </div>
+      <div class="t-list" id="myList"></div>
+    </div>
+  </div>
+</section>
+
+  </main>
+
+  <!-- ===== Testimonial Modal ===== -->
+ <div id="authArea" style="display:flex;gap:10px;align-items:center">
+  <img id="authAvatar" alt="" style="width:28px;height:28px;border-radius:50%;display:none">
+  <span id="authName" style="opacity:.8;font-size:14px"></span>
+  <button id="btnSignIn" class="btn-premium"><i data-lucide="log-in"></i> Sign in</button>
+  <button id="btnSignOut" class="btn-premium" style="display:none"><i data-lucide="log-out"></i> Sign out</button>
+</div>
+
+  <div class="t-modal" id="tModal" aria-hidden="true" role="dialog" aria-labelledby="tModalTitle">
+    <div class="t-overlay" id="tOverlay"></div>
+    <div class="t-dialog" role="document">
+      <div class="t-headbar">
+        <h4 id="tModalTitle"><i data-lucide="message-square-plus"></i> Share your experience</h4>
+        <button class="t-close" id="tClose" aria-label="Close dialog"><i data-lucide="x"></i></button>
+      </div>
+
+      <div class="t-body">
+        <!-- INFO: client-side demo. For production, POST to your backend or form service. -->
+        <form id="tForm" class="t-form" autocomplete="on" novalidate>
+          <!-- Honeypot (spam trap) -->
+          <input type="text" name="company_website" tabindex="-1" autocomplete="off" style="position:absolute;left:-9999px;opacity:0" aria-hidden="true">
+
+          <div class="t-field">
+            <input class="t-input" type="text" id="tName" name="name" placeholder=" " required maxlength="60">
+            <label class="t-label" for="tName">Your name *</label>
+          </div>
+
+          <div class="t-field">
+            <input class="t-input" type="text" id="tRole" name="role" placeholder=" " maxlength="80">
+            <label class="t-label" for="tRole">Role / Company</label>
+          </div>
+
+          <div class="t-field full">
+            <textarea class="t-textarea" id="tMessage" name="message" placeholder=" " required maxlength="400"></textarea>
+            <label class="t-label" for="tMessage">Your testimonial *</label>
+            <div class="t-help" id="tCount">0 / 400</div>
+          </div>
+
+          <div class="t-field">
+            <input class="t-input" type="url" id="tAvatar" name="avatar" placeholder=" ">
+            <label class="t-label" for="tAvatar">Avatar URL (optional)</label>
+          </div>
+
+          <div class="t-field">
+            <div class="t-stars-input" aria-label="Rating">
+  <input type="hidden" id="tRating" name="rating" value="5">
+  <button type="button" data-star="1" aria-label="1 star"><i data-lucide="star"></i></button>
+  <button type="button" data-star="2" aria-label="2 stars"><i data-lucide="star"></i></button>
+  <button type="button" data-star="3" aria-label="3 stars"><i data-lucide="star"></i></button>
+  <button type="button" data-star="4" aria-label="4 stars"><i data-lucide="star"></i></button>
+  <button type="button" data-star="5" aria-label="5 stars"><i data-lucide="star"></i></button>
+</div>
+            <div class="t-help">Tap to set your rating</div>
+          </div>
+
+          <div class="full t-help">
+            <label style="display:flex; gap:8px; align-items:center">
+              <input type="checkbox" id="tConsent" required>
+              I consent to having my testimonial published on this site.
+            </label>
+            <div class="t-error" id="tError" role="alert" style="display:none"></div>
+          </div>
+
+          <div class="t-foot full">
+            <div class="left">
+              <i data-lucide="shield"></i>
+              <span>Your info is reviewed before publishing.</span>
+            </div>
+            <div class="right">
+              <button type="button" class="ghost" id="tCancel">Cancel</button>
+              <button type="submit" class="submit">Submit</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- Page scripts: icons init + testimonial interactivity -->
+ <script type="module">
+/* ---------- Firebase imports ---------- */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-auth.js";
+import {
+  getFirestore, collection, addDoc, serverTimestamp,
+  query, where, orderBy, getDocs,
+  doc, updateDoc, deleteDoc
+} from "https://www.gstatic.com/firebasejs/10.13.1/firebase-firestore.js";
+
+/* ---------- Your Firebase config ---------- */
+const firebaseConfig = {
+  apiKey: "AIzaSyBuOHYmvqR1qxz8p38GzdJh7Ibqe6lFsLg",
+  authDomain: "stayve-port.firebaseapp.com",
+  projectId: "stayve-port",
+  appId: "1:21664104577:web:c5598409b05e6854eb8d80"
+};
+
+/* ---------- Init ---------- */
+const app  = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const db   = getFirestore(app);
+const provider = new GoogleAuthProvider();
+
+/* ---------- DOM refs ---------- */
+const $  = (s, r=document) => r.querySelector(s);
+const $$ = (s, r=document) => Array.from(r.querySelectorAll(s));
+
+const openBtn   = $("#openTestimonial");
+const form      = $("#tForm");
+const nameInp   = $("#tName");
+const roleInp   = $("#tRole");
+const msgInp    = $("#tMessage");
+const avatarInp = $("#tAvatar");
+const ratingInp = $("#tRating");
+const consent   = $("#tConsent");
+const tList     = document.querySelector(".section .testimonials .wrap .t-list"); // public list
+const modal     = $("#tModal");
+const overlay   = $("#tOverlay");
+const btnClose  = $("#tClose");
+const btnCancel = $("#tCancel");
+const errorBox  = $("#tError");
+
+const btnSignIn  = $("#btnSignIn");
+const btnSignOut = $("#btnSignOut");
+const authName   = $("#authName");
+const authAvatar = $("#authAvatar");
+
+const myPanel = document.getElementById("my-submissions");
+const myList  = document.getElementById("myList");
+
+/* ---------- Helpers ---------- */
+function safeHTML(s){ return String(s||"").replace(/[<>&"]/g, m => ({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[m])); }
+function lucideRender(scope=document){ try{ window.lucide?.createIcons?.(); }catch{} }
+function openModal(){
+  modal.classList.add("active");
+  modal.setAttribute("aria-hidden","false");
+  document.body.classList.add("no-scroll");
+  nameInp.focus();
+}
+function closeModal(){
+  modal.classList.remove("active");
+  modal.setAttribute("aria-hidden","true");
+  document.body.classList.remove("no-scroll");
+  form.reset();
+  ratingInp.value = 5;
+  // reset star UI (form stars)
+  $$(".t-stars-input button").forEach(b => b.classList.toggle("is-active", Number(b.dataset.star) <= 5));
+  errorBox.style.display = "none";
+}
+
+/* ---------- Star UI (form) ---------- */
+// for the form stars
+const starBtns = $$(".t-stars-input button");
+function setRating(val){
+  starBtns.forEach(b => b.classList.toggle("is-active", Number(b.dataset.star) <= val));
+}
+starBtns.forEach(btn => btn.addEventListener("click", () => {
+  const n = Number(btn.dataset.star);
+  ratingInp.value = n;
+  setRating(n);
+}));
+setRating(Number(ratingInp.value || 5));
+// initial fill
+
+/* ---------- Enhanced createCard (owner controls) ---------- */
+function createCard({
+  id, name, role, message, photoURL, rating, year,
+  approvedBadge, ownerUid, context = "public", userEmail,
+  createdAt // <-- NEW
+}){
+  const starsHTML = [1,2,3,4,5].map(n => `<i data-lucide="star" class="${n<=rating?'is-active':''}"></i>`).join('');
+  const isOwner = currentUser && ownerUid && currentUser.uid === ownerUid;
+  const showOwnerControls = context === "private" && isOwner;
+  const showEmail = context === "private" && userEmail;
+
+  const card = document.createElement("article");
+  card.className = "t-card";
+  if (id) card.dataset.id = id;
+  card.innerHTML = `
+    <div class="t-head">
+      <img class="t-avatar" loading="lazy" src="${photoURL || 'https://placehold.co/96x96/jpg'}" alt="${safeHTML(name)} headshot">
+      <div>
+        <p class="t-name">${safeHTML(name)}</p>
+        <p class="t-role">
+          ${safeHTML(role || 'Client')}
+          ${showEmail ? ` · <span class="t-email">${safeHTML(userEmail)}</span>` : ""}
+        </p>
+      </div>
+      <div class="t-stars" aria-label="${rating} out of 5 stars">
+        ${starsHTML}
+      </div>
+    </div>
+
+    <p class="t-quote"><i data-lucide="quote"></i>${safeHTML(message)}</p>
+
+    <div class="t-meta">
+      <span>Uploaded: ${formatWhen(createdAt)} · ${year}</span>
+      <span class="t-badge">
+        <i data-lucide="${approvedBadge ? 'shield-check' : 'clock'}"></i>
+        ${approvedBadge ? 'Verified' : 'Pending review'}
+      </span>
+    </div>
+
+    ${showOwnerControls ? `
+      <div class="t-meta" style="margin-top:10px; gap:8px">
+        <button class="btn-premium" data-action="edit"><i data-lucide="edit-3"></i> Edit</button>
+        <button class="btn-premium" data-action="delete"><i data-lucide="trash-2"></i> Delete</button>
+      </div>
+    ` : ``}
+  `;
+  lucideRender(card);
+  return card;
+}
+
+// Date&time formated//
+function formatWhen(ts) {
+  try {
+    // Firestore Timestamp -> Date -> nice local string
+    const d = ts?.toDate ? ts.toDate() : (ts instanceof Date ? ts : null);
+    if (!d) return "just now";
+    return d.toLocaleString(undefined, {
+      year: "numeric", month: "short", day: "2-digit",
+      hour: "2-digit", minute: "2-digit"
+    });
+  } catch {
+    return "just now";
+  }
+}
+
+/* ---------- Auth state (FIXED) ---------- */
+let currentUser = null;
+
+onAuthStateChanged(auth, async (user) => {
+  currentUser = user || null;
+
+  if (user) {
+    btnSignIn.style.display = "none";
+    btnSignOut.style.display = "";
+    authName.textContent = user.displayName || user.email || "Signed in";
+    if (user.photoURL) { authAvatar.src = user.photoURL; authAvatar.style.display = ""; }
+    else { authAvatar.style.display = "none"; }
+    // Prefill form
+    nameInp.value = user.displayName || "";
+    avatarInp.value = user.photoURL || "";
+    await loadMySubmissions();
+  } else {
+    btnSignIn.style.display = "";
+    btnSignOut.style.display = "none";
+    authName.textContent = "";
+    authAvatar.style.display = "none";
+    nameInp.value = "";
+    avatarInp.value = "";
+    if (myPanel){ myPanel.hidden = true; }
+    if (myList){ myList.innerHTML = ""; }
+  }
+  lucideRender();
+});
+
+/* ---------- Sign in/out ---------- */
+async function doSignIn() {
+  try { await signInWithPopup(auth, provider); }
+  catch (e) {
+    console.error("Sign-in failed:", e.code, e.message);
+    errorBox.style.display = "block";
+    errorBox.textContent = (e.code === "auth/unauthorized-domain")
+      ? "This domain is not authorized in Firebase Auth. Add it in Authentication → Settings → Authorized domains."
+      : (e.message || "Sign-in was blocked. Check popup settings.");
+    throw e;
+  }
+}
+btnSignIn?.addEventListener("click", doSignIn);
+btnSignOut?.addEventListener("click", async () => { try { await signOut(auth); } catch (e) { console.warn("signout failed", e); }});
+
+/* ---------- Open modal (requires sign-in) ---------- */
+openBtn?.addEventListener("click", async () => {
+  if (!auth.currentUser) {
+    try { await doSignIn(); } catch { return; }
+  }
+  openModal();
+});
+btnClose?.addEventListener("click", closeModal);
+btnCancel?.addEventListener("click", closeModal);
+overlay?.addEventListener("click", closeModal);
+window.addEventListener("keydown", (e)=>{ if (e.key === "Escape" && modal.classList.contains("active")) closeModal(); });
+
+/* ---------- Public: load approved + consented ---------- */
+async function loadApproved(){
+  try{
+    tList.innerHTML = "";
+    const q = query(
+      collection(db, "testimonials"),
+      where("approved","==", true),
+      where("consent","==", true)
+    );
+    const snap = await getDocs(q);
+
+    const items = [];
+    snap.forEach(docSnap => items.push({ id: docSnap.id, ...docSnap.data() }));
+
+    // newest first (client-side)
+    items.sort((a,b) => (b.createdAt?.toMillis?.() ?? 0) - (a.createdAt?.toMillis?.() ?? 0));
+
+    for (const d of items) {
+      const el = createCard({
+        id: d.id,
+        name: d.name,
+        role: d.role,
+        message: d.message,
+        photoURL: d.photoURL,
+        rating: d.rating || 5,
+        year: (d.createdAt?.toDate?.()?.getFullYear?.()) || new Date().getFullYear(),
+        approvedBadge: true,
+        ownerUid: d.uid,
+        context: "public",
+        userEmail: d.userEmail || "",
+        createdAt: d.createdAt
+      });
+      tList.appendChild(el);
+    }
+  } catch(e){ console.warn("loadApproved failed", e); }
+}
+
+loadApproved();
+
+/* ---------- Private: load my submissions ---------- */
+async function loadMySubmissions(){
+  if (!currentUser) { if (myPanel) myPanel.hidden = true; if (myList) myList.innerHTML = ""; return; }
+  try {
+    if (myPanel) myPanel.hidden = false;
+    if (myList) myList.innerHTML = "";
+
+    const q = query(collection(db, "testimonials"), where("uid","==", currentUser.uid));
+    const snap = await getDocs(q);
+
+    const items = [];
+    snap.forEach(docSnap => items.push({ id: docSnap.id, ...docSnap.data() }));
+
+    items.sort((a,b) => (b.createdAt?.toMillis?.() ?? 0) - (a.createdAt?.toMillis?.() ?? 0));
+
+    for (const d of items) {
+      const el = createCard({
+        id: d.id,
+        name: d.name,
+        role: d.role,
+        message: d.message,
+        photoURL: d.photoURL,
+        rating: d.rating || 5,
+        year: (d.createdAt?.toDate?.()?.getFullYear?.()) || new Date().getFullYear(),
+        approvedBadge: !!d.approved,
+        ownerUid: d.uid,
+        context: "private",          // ← shows Edit/Delete in this panel
+        userEmail: d.userEmail || "",
+        createdAt: d.createdAt
+      });
+      myList.appendChild(el);
+    }
+  } catch (e){ console.warn("loadMySubmissions failed", e); }
+}
+
+const optimistic = createCard({
+  id: ref.id,
+  name, role, message, photoURL: photo, rating,
+  year: new Date().getFullYear(),
+  approvedBadge: false,
+  ownerUid: auth.currentUser.uid,
+  context: "private",
+  userEmail: auth.currentUser.email || "",
+  createdAt: new Date()   // shows date/time immediately
+});
+myList?.prepend(optimistic);
+
+
+
+/* ---------- Owner actions: edit/delete ---------- */
+myList?.addEventListener("click", async (e)=>{
+  const btn = e.target.closest("button[data-action]");
+  if (!btn) return;
+  const card = btn.closest(".t-card");
+  const id = card?.dataset?.id;
+  if (!id) return;
+
+  if (btn.dataset.action === "delete") {
+    if (!confirm("Delete this testimonial?")) return;
+    await AppLoader.run(() => deleteDoc(doc(db, "testimonials", id)), { text: "Deleting…" });
+    card.remove();
+    const publicCard = tList.querySelector(`.t-card[data-id="${id}"]`);
+    publicCard?.remove();
+    return;
+  }
+
+  if (btn.dataset.action === "edit") {
+    const name = card.querySelector(".t-name")?.textContent || "";
+    const role = card.querySelector(".t-role")?.textContent || "";
+    const message = card.querySelector(".t-quote")?.textContent?.replace(/^\s*["“”]?|["“”]?\s*$/g,"") || "";
+    const photoURL = card.querySelector(".t-avatar")?.getAttribute("src") || "";
+    const rating = card.querySelectorAll(".t-stars i.is-active").length || 5;
+
+    nameInp.value = name;
+    roleInp.value = role === "Client" ? "" : role;
+    msgInp.value = message;
+    avatarInp.value = photoURL;
+    ratingInp.value = rating;
+    setRating(rating);
+
+    openModal();
+    form.dataset.editingId = id;
+  }
+});
+
+
+
+/* ---------- Submit (create or update) ---------- */
+form?.addEventListener("submit", async (e) => {
+  e.preventDefault();
+  const showErr = (m)=>{ errorBox.style.display="block"; errorBox.textContent=m; };
+
+  try{
+    if (!auth.currentUser) return showErr("Please sign in first.");
+    if (!consent.checked) return showErr("Please check the consent box to proceed.");
+
+    const name    = (nameInp.value.trim() || auth.currentUser.displayName || "");
+    const role    = roleInp.value.trim();
+    const message = msgInp.value.trim();
+    const photo   = (avatarInp.value.trim() || auth.currentUser.photoURL || "");
+    const rating  = Math.max(1, Math.min(5, Number(ratingInp.value || 5)));
+    if (!name || !message) return showErr("Your name and testimonial are required.");
+    if (message.length > 400) return showErr("Please keep your message under 400 characters.");
+
+    const editingId = form.dataset.editingId;
+
+    if (editingId) {
+      await AppLoader.run(
+        () => updateDoc(doc(db, "testimonials", editingId), {
+          // Non-admins cannot approve via rules; leave approved as-is
+          name, role, message, photoURL: photo, rating, consent: true
+        }),
+        { text: "Updating your testimonial…" }
+      );
+      await loadMySubmissions();
+      await loadApproved();
+      delete form.dataset.editingId;
+    } else {
+  // inside the "create" branch of your submit handler
+// Add to Firestore
+// CREATE branch inside form submit handler
+const ref = await AppLoader.run(
+  () => addDoc(collection(db, "testimonials"), {
+    uid: auth.currentUser.uid,
+    userEmail: auth.currentUser.email || "",
+    name, role, message, photoURL: photo, rating,
+    consent: true,
+    approved: false,
+    createdAt: serverTimestamp()
+  }),
+  { text: "Submitting your testimonial…" }
+);
+
+// // --- Optimistic card in “My Submissions” (shows immediately) ---
+// const optimistic = createCard({
+//   id: ref.id,
+//   name, role, message, photoURL: photo, rating,
+//   year: new Date().getFullYear(),
+//   approvedBadge: false,                 // shows "Pending review"
+//   ownerUid: auth.currentUser.uid,
+//   context: "private",
+//   userEmail: auth.currentUser.email || "",
+//   createdAt: new Date()                 // so we can print date/time right away
+// });
+// myList?.prepend(optimistic);
+
+// Refresh from Firestore (will replace optimistic with real data)
+await loadMySubmissions();
+      // refresh with server data when ready
+ // refresh with real data when available
+}
+
+
+    closeModal();
+  }catch(err){
+    console.error(err);
+    showErr("Could not submit right now. Please try again.");
+  }
+});
+
+/* ---------- Initial Lucide render ---------- */
+window.addEventListener('DOMContentLoaded', ()=> lucideRender());
+</script>
+</body>
+</html>

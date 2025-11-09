@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Portfolio | Stayve Alreach</title>
+
+  <!-- Page styles -->
+  <link rel="stylesheet" href="/Projects/css/portfolio.css" />
+
+  <!-- Sidebar component -->
+  <link rel="stylesheet" href="/components/sidebar.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script defer src="/components/sidebar.js"></script>
+</head>
+<body>
+
+  <!-- Injected sidebar -->
+  <div id="sidebar-root"></div>
+
+  <header class="pf-header">
+    <h1>Projects</h1>
+    <p>A few things I’ve built—focused on clean UI, solid UX, and performance.</p>
+  </header>
+
+  <main class="pf-container">
+    <!-- FILTERS -->
+    <div class="filters" role="tablist" aria-label="Project filters">
+      <button class="chip active" data-filter="all" role="tab" aria-selected="true">All</button>
+      <button class="chip" data-filter="web" role="tab">Web</button>
+      <button class="chip" data-filter="mobile" role="tab">Mobile</button>
+      <button class="chip" data-filter="ui" role="tab">UI</button>
+    </div>
+
+    <!-- GRID -->
+    <section class="grid" id="projectGrid">
+      <!-- CARD 1 -->
+      <article class="card" data-type="mobile">
+        <div class="thumb">
+          <img src="/images/Me.png" alt="Road Rescue App preview" />
+          <span class="badge"><i data-lucide="smartphone"></i> Mobile</span>
+        </div>
+        <div class="body">
+          <h3>Road Rescue App</h3>
+          <p>.NET MAUI concept for roadside emergency assistance with location and service requests.</p>
+          <div class="tags">
+            <span>.NET</span><span>MAUI</span><span>C#</span>
+          </div>
+          <div class="cta">
+            <a class="btn ghost" href="#" target="_blank" rel="noopener">
+              <i data-lucide="play"></i> Demo
+            </a>
+            <a class="btn primary" href="#" target="_blank" rel="noopener">
+              <i data-lucide="code-2"></i> Code
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 2 -->
+      <article class="card" data-type="web">
+        <div class="thumb">
+          <img src="/images/stayvePic.jpg" alt="Portfolio Site preview" />
+          <span class="badge"><i data-lucide="globe"></i> Web</span>
+        </div>
+        <div class="body">
+          <h3>Personal Portfolio</h3>
+          <p>Responsive site with a reusable sidebar component and animated UI details.</p>
+          <div class="tags">
+            <span>HTML</span><span>CSS</span><span>JS</span>
+          </div>
+          <div class="cta">
+            <a class="btn ghost" href="/pages/index.html">
+              <i data-lucide="play"></i> Live
+            </a>
+            <a class="btn primary" href="#" target="_blank" rel="noopener">
+              <i data-lucide="code-2"></i> Code
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 3 -->
+      <article class="card" data-type="ui">
+        <div class="thumb">
+          <img src="/images/Me.png" alt="UI Component Library preview" />
+          <span class="badge"><i data-lucide="palette"></i> UI</span>
+        </div>
+        <div class="body">
+          <h3>UI Component Set</h3>
+          <p>Reusable buttons, cards, forms, and navigation patterns with accessibility in mind.</p>
+          <div class="tags">
+            <span>Design</span><span>Accessibility</span><span>Patterns</span>
+          </div>
+          <div class="cta">
+            <a class="btn ghost" href="#" target="_blank" rel="noopener">
+              <i data-lucide="play"></i> Preview
+            </a>
+            <a class="btn primary" href="#" target="_blank" rel="noopener">
+              <i data-lucide="code-2"></i> Code
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <!-- CARD 4 -->
+      <article class="card" data-type="web">
+        <div class="thumb">
+          <img src="/images/Me.png" alt="Landing page preview" />
+          <span class="badge"><i data-lucide="globe"></i> Web</span>
+        </div>
+        <div class="body">
+          <h3>Product Landing</h3>
+          <p>Fast, responsive landing page with semantic HTML and SEO-ready structure.</p>
+          <div class="tags">
+            <span>HTML</span><span>SEO</span><span>Perf</span>
+          </div>
+          <div class="cta">
+            <a class="btn ghost" href="#" target="_blank" rel="noopener">
+              <i data-lucide="play"></i> Live
+            </a>
+            <a class="btn primary" href="#" target="_blank" rel="noopener">
+              <i data-lucide="code-2"></i> Code
+            </a>
+          </div>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <!-- Tiny filter script + icon render -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      if (window.lucide) lucide.createIcons();
+
+      const buttons = document.querySelectorAll('.filters .chip');
+      const cards = document.querySelectorAll('.grid .card');
+
+      buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          buttons.forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+          btn.classList.add('active');
+          btn.setAttribute('aria-selected','true');
+
+          const type = btn.dataset.filter;
+          cards.forEach(card => {
+            const show = type === 'all' || card.dataset.type === type;
+            card.style.display = show ? '' : 'none';
+          });
+        });
+      });
+    });
+  </script>
+</body>
+</html>

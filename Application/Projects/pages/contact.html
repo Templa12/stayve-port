@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Contact | Stayve Alreach</title>
+
+  <!-- Page styles -->
+  <link rel="stylesheet" href="/projects/css/contact.css" />
+
+  <!-- Sidebar component -->
+  <link rel="stylesheet" href="/components/sidebar.css" />
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <script defer src="/components/sidebar.js"></script>
+
+  <!-- reCAPTCHA v3 -->
+  <script src="https://www.google.com/recaptcha/api.js?render=6LfifQYsAAAAAK_g3JpijVajMi7zQCqgxN_EgYQt"></script>
+</head>
+<body>
+
+  <!-- Injected sidebar -->
+  <div id="sidebar-root"></div>
+
+  <header class="contact-header">
+    <h1>Contact</h1>
+    <p>Have a project or idea? Let’s build it.</p>
+  </header>
+
+  <main class="contact-container">
+    <!-- INFO PANEL -->
+    <section class="info-card">
+      <h2>Get in touch</h2>
+      <p>I’m available for freelance work and collaborations.</p>
+
+      <ul class="list">
+        <li><i data-lucide="map-pin"></i> Argao, Cebu, Philippines</li>
+        <li><i data-lucide="mail"></i> programmerstayve@gmail.com</li>
+        <li><i data-lucide="phone"></i> +63 965 401 6204</li>
+      </ul>
+
+      <div class="socials">
+        <a href="https://www.facebook.com/bapbap233" aria-label="Facebook" target="_blank" rel="noopener">
+          <i data-lucide="facebook"></i>
+        </a>
+        <a href="https://www.instagram.com/stayvealreach/" aria-label="Instagram" target="_blank" rel="noopener">
+          <i data-lucide="instagram"></i>
+        </a>
+        <a href="https://wa.me/639654016204?text=Hi%20Stayve%2C%20I%E2%80%99d%20like%20to%20chat%20about%20a%20project." aria-label="WhatsApp" target="_blank" rel="noopener">
+          <i data-lucide="message-circle"></i>
+        </a>
+      </div>
+
+      <div class="quick-actions">
+        <a class="btn ghost" href="/pages/Resume.html"><i data-lucide="file-text"></i> View Résumé</a>
+        <a class="btn wa" href="https://wa.me/639654016204?text=Hi%20Stayve%2C%20I%E2%80%99d%20like%20to%20chat%20about%20a%20project." target="_blank" rel="noopener">
+          <i data-lucide="phone"></i> WhatsApp
+        </a>
+      </div>
+
+      <!-- GOOGLE MAP -->
+      <div class="map-wrap">
+        <iframe title="Map - Argao, Cebu, Philippines" loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+          src="https://www.google.com/maps?q=Argao%2C%20Cebu%2C%20Philippines&output=embed"></iframe>
+      </div>
+    </section>
+
+    <!-- FORM PANEL -->
+    <section class="form-card">
+      <h2>Send a message</h2>
+
+      <form id="contactForm" novalidate>
+        <input type="hidden" id="FORM_ENDPOINT" value="https://formspree.io/f/mnnladyo" />
+
+        <div class="row">
+          <label for="name">Name</label>
+          <input id="name" name="name" type="text" placeholder="Your name" required />
+          <small class="error" id="err-name"></small>
+        </div>
+
+        <div class="row">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" placeholder="you@example.com" required />
+          <small class="error" id="err-email"></small>
+        </div>
+
+        <div class="row">
+          <label for="subject">Subject</label>
+          <input id="subject" name="subject" type="text" placeholder="Project inquiry" required />
+          <small class="error" id="err-subject"></small>
+        </div>
+
+        <div class="row">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="6" placeholder="Tell me about your project..." required></textarea>
+          <small class="hint">Minimum 10 characters</small>
+          <small class="error" id="err-message"></small>
+        </div>
+
+        <!-- Honeypot (spam trap) -->
+        <div style="position:absolute; left:-10000px; top:auto; width:1px; height:1px; overflow:hidden;">
+          <label>Leave this empty:
+            <input type="text" name="_gotcha" tabindex="-1" autocomplete="off" />
+          </label>
+        </div>
+
+        <div class="actions">
+          <button type="submit" class="btn primary" id="submitBtn">
+            <i data-lucide="mail-send"></i> Send Message
+          </button>
+
+          <!-- Email options -->
+          <a class="btn ghost" target="_blank" rel="noopener"
+             href="https://mail.google.com/mail/?view=cm&fs=1&to=programmerstayve@gmail.com&su=Hello%20Stayve">
+            <i data-lucide="mail"></i> Email via Gmail
+          </a>
+          <a class="btn ghost" href="mailto:programmerstayve@gmail.com?subject=Hello%20Stayve">
+            <i data-lucide="mail"></i> Email via Mail App
+          </a>
+        </div>
+
+        <p id="status" class="status" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
+
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+    if (window.lucide) lucide.createIcons();
+
+    const form = document.getElementById('contactForm');
+    const statusEl = document.getElementById('status');
+    const endpoint = document.getElementById('FORM_ENDPOINT').value.trim();
+    const submitBtn = document.getElementById('submitBtn');
+
+    const errName = document.getElementById('err-name');
+    const errEmail = document.getElementById('err-email');
+    const errSubject = document.getElementById('err-subject');
+    const errMessage = document.getElementById('err-message');
+
+    const nameEl = document.getElementById('name');
+    const emailEl = document.getElementById('email');
+    const subjectEl = document.getElementById('subject');
+    const messageEl = document.getElementById('message');
+
+    // reCAPTCHA site key (v3)
+    const RECAPTCHA_SITE_KEY = '6LfifQYsAAAAAK_g3JpijVajMi7zQCqgxN_EgYQt';
+
+    const isEmail = (v) => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v);
+    const minLen = (v, n) => v && v.length >= n;
+
+    function clearErrors() {
+      [errName, errEmail, errSubject, errMessage].forEach(el => el.textContent = '');
+    }
+
+    function validate() {
+      clearErrors();
+      let ok = true;
+      if (!minLen(nameEl.value.trim(), 2))  { errName.textContent = 'Please enter at least 2 characters.'; ok = false; }
+      if (!isEmail(emailEl.value.trim()))   { errEmail.textContent = 'Please enter a valid email address.'; ok = false; }
+      if (!minLen(subjectEl.value.trim(), 3)) { errSubject.textContent = 'Subject must be at least 3 characters.'; ok = false; }
+      if (!minLen(messageEl.value.trim(), 10)) { errMessage.textContent = 'Message must be at least 10 characters.'; ok = false; }
+      return ok;
+    }
+
+    [nameEl, emailEl, subjectEl, messageEl].forEach(el => el.addEventListener('input', validate));
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      statusEl.textContent = '';
+
+      // Honeypot
+      const gotcha = form.querySelector('input[name="_gotcha"]')?.value || '';
+      if (gotcha) { statusEl.textContent = 'Thanks!'; form.reset(); return; }
+
+      // Client validation
+      if (!validate()) {
+        statusEl.textContent = 'Please fix the errors above and try again.';
+        if (errName.textContent) { nameEl.focus(); return; }
+        if (errEmail.textContent) { emailEl.focus(); return; }
+        if (errSubject.textContent) { subjectEl.focus(); return; }
+        if (errMessage.textContent) { messageEl.focus(); return; }
+        return;
+      }
+
+      submitBtn.disabled = true;
+      submitBtn.style.opacity = '0.7';
+
+      const payload = {
+        name: nameEl.value.trim(),
+        email: emailEl.value.trim(),
+        subject: subjectEl.value.trim(),
+        message: messageEl.value.trim()
+      };
+
+      // Get reCAPTCHA token (v3)
+      let recaptchaToken = '';
+      try {
+        if (window.grecaptcha && RECAPTCHA_SITE_KEY) {
+          await grecaptcha.ready();
+          recaptchaToken = await grecaptcha.execute(RECAPTCHA_SITE_KEY, { action: 'contact' });
+        }
+      } catch (err) {
+        console.warn('reCAPTCHA token error:', err);
+      }
+
+      if (endpoint) {
+        statusEl.textContent = 'Sending…';
+        try {
+          const res = await fetch(endpoint, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({ ...payload, 'g-recaptcha-response': recaptchaToken })
+          });
+
+          if (res.ok) {
+            form.reset();
+            clearErrors();
+            statusEl.textContent = 'Thanks! Your message has been sent.';
+          } else {
+            let msg = 'Send failed. Please try again or email me directly.';
+            try {
+              const text = await res.text();
+              try {
+                const data = JSON.parse(text);
+                msg = data?.errors?.length ? data.errors.map(e => e.message).join(' ') : text;
+              } catch { msg = text; }
+            } catch {}
+            statusEl.textContent = msg;
+          }
+        } catch {
+          statusEl.textContent = 'Network error. Please try again or email me directly.';
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.style.opacity = '';
+        }
+        return;
+      }
+
+      // Fallback: mailto
+      const body = `Hi Stayve,\n\n${payload.message}\n\n—\nFrom: ${payload.name}\nEmail: ${payload.email}`;
+      const mailto = `mailto:programmerstayve@gmail.com?subject=${encodeURIComponent(payload.subject)}&body=${encodeURIComponent(body)}`;
+      statusEl.textContent = 'Opening your email app…';
+      window.location.href = mailto;
+      setTimeout(() => { statusEl.textContent = 'If your mail app didn’t open, click "Email via Gmail" or "Email via Mail App".'; }, 1200);
+      submitBtn.disabled = false;
+      submitBtn.style.opacity = '';
+    });
+  });
+  </script>
+</body>
+</html>

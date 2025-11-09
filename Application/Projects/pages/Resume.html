@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resume | Stayve Alreach</title>
+
+  <!-- Your resume styles -->
+  <link rel="stylesheet" href="/Projects/css/resume.css" />
+
+  <!-- Sidebar component styles -->
+  <link rel="stylesheet" href="/components/sidebar.css" />
+
+  <!-- Lucide icons (needed by the sidebar) -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Sidebar loader/logic -->
+  <script defer src="/components/sidebar.js"></script>
+</head>
+<body>
+
+  <!-- Where the sidebar component will be injected -->
+  <div id="sidebar-root"></div>
+
+  <main class="resume-container">
+    <!-- LEFT COLUMN -->
+    <section class="profile">
+      <img src="/images/stayvePic.jpg" alt="profile-image" />
+      <h2>Stayve Alreach T. Fedillaga</h2>
+      <p class="role">Web Developer</p>
+
+      <div class="info">
+        <p><strong>Location:</strong> Argao, Cebu, Philippines</p>
+        <p><strong>Email:</strong> programmerstayve@gmail.com</p>
+        <p><strong>Phone:</strong> +63 965 401 6204</p>
+      </div>
+
+      <div class="skills">
+        <h3>Skills</h3>
+        <ul>
+          <li>HTML / CSS / JavaScript</li>
+          <li>C# (.NET / MAUI / Xamarin)</li>
+          <li>SQL / SQLite</li>
+          <li>Responsive UI & Front-end Design</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- RIGHT COLUMN -->
+    <section class="resume-content">
+      <div class="section">
+        <h3>Experience</h3>
+        <div class="item">
+          <h4>Front-End Developer (Freelance)</h4>
+          <p>2024 - Present</p>
+          <p>Creating websites and responsive UI using HTML, CSS, JS.</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Education</h3>
+        <div class="item">
+          <h4>Bachelor of Science in Information Technology</h4>
+          <p>Cebu Technological University</p>
+          <p>2022 - Present</p>
+        </div>
+      </div>
+
+      <div class="section">
+        <h3>Projects</h3>
+        <div class="item">
+          <h4>Road Rescue App</h4>
+          <p>.NET MAUI Mobile App for roadside emergency assistance.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
